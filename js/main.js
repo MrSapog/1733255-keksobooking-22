@@ -1,33 +1,20 @@
-// Часть функции с сайта MDN https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandom(min, max) {
-
-  // Меняем местами параметры, если первый больше второго.
-  let correctMin = min;
-  let correctMax = max;
+  // Меняем местами параметры, если первый больше второго https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
   if (min > max) {
-    correctMin = max;
-    correctMax = min;
+    [min, max] = [max, min]
   }
-
-  correctMin = Math.abs(Math.ceil(correctMin));
-  correctMax = Math.abs(Math.floor(correctMax));
-  return Math.floor(Math.random() * (correctMax - correctMin + 1)) + correctMin;
+  // Превращаем в положительные https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/abs
+  min = Math.abs(Math.ceil(min));
+  max = Math.abs(Math.floor(max));
+  // Часть функции с сайта MDN https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function getRandomFloat(min, max, digits) {
-
-  // Меняем местами параметры, если первый больше второго.
-  let correctMin = min;
-  let correctMax = max;
   if (min > max) {
-    correctMin = max;
-    correctMax = min;
+    [min, max] = [max, min]
   }
-
-  correctMin = Math.abs(correctMin);
-  correctMax = Math.abs(correctMax);
-
-  return (Math.random() * (correctMax - correctMin) + correctMin).toFixed(digits);
+  min = Math.abs(min);
+  max = Math.abs(max);
+  return (Math.random() * (max - min) + min).toFixed(digits);
 }
-
-console.log(getRandomFloat(1.0, 1.1, 2))
