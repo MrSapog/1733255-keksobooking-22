@@ -16,6 +16,7 @@ function getRandom(min, max) {
 
 function getRandomFloat(min, max, digits) {
 
+  // Меняем местами параметры, если первый больше второго.
   let correctMin = min;
   let correctMax = max;
   if (min > max) {
@@ -29,3 +30,4 @@ function getRandomFloat(min, max, digits) {
   return (Math.random() * (correctMax - correctMin) + correctMin).toFixed(digits);
 }
 
+console.log(getRandomFloat(1.0, 1.1, 2))
