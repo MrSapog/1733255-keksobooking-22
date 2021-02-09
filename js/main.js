@@ -1,4 +1,4 @@
-function getRandom(min, max) {
+const getRandom = (min, max) => {
   // Меняем местами параметры, если первый больше второго https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
   if (min > max) {
     [min, max] = [max, min]
@@ -10,7 +10,7 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getRandomFloat(min, max, digits) {
+const getRandomFloat = (min, max, digits) => {
   if (min > max) {
     [min, max] = [max, min]
   }
@@ -18,3 +18,6 @@ function getRandomFloat(min, max, digits) {
   max = Math.abs(max);
   return (Math.random() * (max - min) + min).toFixed(digits);
 }
+
+getRandom(1, 10);
+getRandomFloat(1.8, 15.23123);
