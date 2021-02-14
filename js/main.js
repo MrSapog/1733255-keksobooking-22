@@ -39,7 +39,7 @@ const TITLES = [
   '本物のキラー猫の家',
   'Продаётся уютная коробка',
   'Продам 3-х комнатную квартиру в центре Токио',
-  'Самый неободранyый дом в Гахикабару',
+  'Самый неободранный дом в Гахикабару',
   'Ковёр под мостом с вылизывательным салоном поблизости',
 ];
 
@@ -89,19 +89,34 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const LOCATION = {
-  x: getRandomFloat(35.65000, 35.70000, 5),
-  y: getRandomFloat(139.70000, 139.80000, 5),
-}
-
 const createRealtyAdNearby = () => {
+  /*
+  Прежде константа выглядела так:
+    const LOCATION = {
+      location {
+          x: getRandomFloat(35.65000, 35.70000, 5),
+          y: getRandomFloat(139.70000, 139.80000, 5),
+    }
+  },
+  Но почему-то при выводе в консоль я получал и объект такого же вида:
+  LOCATION:
+    location:
+          x: ...,
+          y: ...,
+  Так у меня на одном уровне были "author, offer и LOCATION". А в LOCATION дублировалось location.
+  Поэтому я сократил константу.
+   */
+  const location = {
+    x: getRandomFloat(35.65000, 35.70000, 5),
+    y: getRandomFloat(139.70000, 139.80000, 5),
+  }
   return {
     author: {
       avatar: 'img/avatars/user' + getRandom(1, 8).toString().padStart(2, '0') + '.png',
     },
     offer: {
       title:       getRandomItem(TITLES),
-      address:     Object.values(LOCATION).join(', '),
+      address:     Object.values(location).join(', '),
       price:       getRandomItem(PRICES),
       type:        getRandomItem(TYPES),
       rooms:       getRandom(1, 5),
@@ -112,16 +127,23 @@ const createRealtyAdNearby = () => {
       description: getRandomItem(DESCRIPTIONS),
       photos:      getRandomCombination(PHOTOS),
     },
-    location: {
-      x: getRandomFloat(35.65000, 35.70000, 5),
-      y: getRandomFloat(139.70000, 139.80000, 5),
-    },
+    location,
   }
 };
 
-const realtyAdNearby = new Array(1).fill(null).map(() => createRealtyAdNearby())
+const realtyAdNearby = new Array(10).fill(null).map(() => createRealtyAdNearby());
 
-console.log(realtyAdNearby);
+realtyAdNearby;
+
+
+
+
+
+
+
+
+
+
 
 
 
