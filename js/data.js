@@ -55,7 +55,9 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const createRealtyAdNearby = () => {
+const numberOfAds = 10;
+
+const createRealtyAd = () => {
   const location = {
     x: getRandomFloat(35.65000, 35.70000, 5),
     y: getRandomFloat(139.70000, 139.80000, 5),
@@ -81,7 +83,7 @@ const createRealtyAdNearby = () => {
   }
 };
 
-const realtyAdNearby = new Array(10).fill(null).map(() => createRealtyAdNearby());
+const createRealtyAds = () => new Array(numberOfAds).fill(null).map(() => createRealtyAd());
 
-realtyAdNearby;
+export {createRealtyAds};
 
