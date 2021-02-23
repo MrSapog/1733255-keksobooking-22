@@ -1,15 +1,9 @@
 import {createRealtyAds} from './data.js';
-
-const mapCanvas = document.getElementById('map-canvas');
 const cardTemplate = document.getElementById('card').content.querySelector('article');
-
 const realtyAds = createRealtyAds();
 
-const realtyAdFragment = document.createDocumentFragment();
-
-realtyAds.forEach((element) => {
+const realtyAdsPopup = (element) => {
   const realtyAd = cardTemplate.cloneNode(true);
-
   realtyAd.querySelector('.popup__title').textContent = element.offer.title;
   realtyAd.querySelector('.popup__text--address').textContent = element.offer.address;
   realtyAd.querySelector('.popup__text--price').innerHTML = element.offer.price + ' ₽/ночь';
@@ -17,14 +11,19 @@ realtyAds.forEach((element) => {
   // Переводим тип жилья на русский
   const translateOfferType = () => {
     let offerType = element.offer.type;
-    if (offerType === 'flat') {
-      offerType = 'Квартира';
-    } else if (offerType === 'bungalow') {
-      offerType = 'Бунгало';
-    } else if (offerType === 'house') {
-      offerType = 'Дом';
-    } else if (offerType === 'palace') {
-      offerType = 'Дворец';
+    switch (offerType) {
+      case 'flat':
+        offerType = 'Квартира';
+        break;
+      case 'bungalow':
+        offerType = 'Бунгало';
+        break;
+      case 'house':
+        offerType = 'Дом';
+        break;
+      case 'palace':
+        offerType = 'Дворец'
+        break;
     }
     return offerType;
   }
@@ -72,15 +71,7 @@ realtyAds.forEach((element) => {
   })
 
   realtyAd.querySelector('.popup__avatar').src = element.author.avatar;
+  return realtyAd;
+}
 
-  realtyAdFragment.appendChild(realtyAd);
-})
-
-// Создаём временное хранилище объявлений, для вывода на карту только одного
-const temp = document.createElement('div')
-temp.appendChild(realtyAdFragment);
-
-const firstAd = temp.querySelector('article');
-mapCanvas.appendChild(firstAd);
-
-
+export {realtyAds, realtyAdsPopup};
