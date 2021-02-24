@@ -69,7 +69,7 @@ const createRealtyAd = () => {
     offer: {
       title:       getRandomItem(TITLES),
       address:     Object.values(location).join(', '),
-      price:       getRandomItem(PRICES),
+      price:       getRandomItem(PRICES).toLocaleString(),
       type:        getRandomItem(TYPES),
       rooms:       getRandom(1, 5),
       guests:      getRandom(1, 13),
@@ -86,4 +86,3 @@ const createRealtyAd = () => {
 const createRealtyAds = () => new Array(numberOfAds).fill(null).map(() => createRealtyAd());
 
 export {createRealtyAds};
-
