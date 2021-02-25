@@ -1,6 +1,4 @@
-import {createRealtyAds} from './data.js';
 const cardTemplate = document.getElementById('card').content.querySelector('article');
-const realtyAds = createRealtyAds();
 
 const realtyAdsPopup = (element) => {
   const realtyAd = cardTemplate.cloneNode(true);
@@ -74,4 +72,7 @@ const realtyAdsPopup = (element) => {
   return realtyAd;
 }
 
-export {realtyAds, realtyAdsPopup};
+
+export {realtyAdsPopup};
+
+
