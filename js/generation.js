@@ -4,7 +4,7 @@ const realtyAdsPopup = (element) => {
   const realtyAd = cardTemplate.cloneNode(true);
   realtyAd.querySelector('.popup__title').textContent = element.offer.title;
   realtyAd.querySelector('.popup__text--address').textContent = element.offer.address;
-  realtyAd.querySelector('.popup__text--price').innerHTML = element.offer.price + ' ₽/ночь';
+  realtyAd.querySelector('.popup__text--price').innerHTML = element.offer.price.toLocaleString() + ' ₽/ночь';
 
   // Переводим тип жилья на русский
   const translateOfferType = () => {
