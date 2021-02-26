@@ -15,3 +15,4 @@ fetch('https://22.javascript.pages.academy/keksobooking/data')
   .catch(() => {
     showAlert('Ошибка запроса данных с сервера!');
   })
+
