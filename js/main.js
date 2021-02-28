@@ -20,5 +20,3 @@ getData(showRealtyAds, showAlert);
 
 
 
-
-
