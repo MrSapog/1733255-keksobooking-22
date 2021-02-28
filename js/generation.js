@@ -73,3 +73,4 @@ const createRealtyAdsPopup = (element) => {
 }
 
 export {createRealtyAdsPopup};
+
