@@ -1,5 +1,5 @@
 import {enableFields} from './condition.js';
-import {realtyAdsPopup} from './generation.js';
+import {createRealtyAdsPopup} from './generation.js';
 
 const address = document.getElementById('address');
 const defaultLat = 35.6895;
@@ -45,7 +45,7 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
-const generateRealtyAds = (realtyAds) => {
+const showRealtyAds = (realtyAds) => {
   realtyAds.forEach((ad) => {
     const marker = L.marker(
       [ad.location.lat, ad.location.lng],
@@ -57,7 +57,7 @@ const generateRealtyAds = (realtyAds) => {
     marker
       .addTo(map)
       .bindPopup(
-        realtyAdsPopup(ad),
+        createRealtyAdsPopup(ad),
         {
           keepInView: true,
         },
@@ -65,5 +65,5 @@ const generateRealtyAds = (realtyAds) => {
   });
 }
 
-export {generateRealtyAds, setDefaultAddress, address};
+export {showRealtyAds, setDefaultAddress};
 

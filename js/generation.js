@@ -1,6 +1,6 @@
 const cardTemplate = document.getElementById('card').content.querySelector('article');
 
-const realtyAdsPopup = (element) => {
+const createRealtyAdsPopup = (element) => {
   const realtyAd = cardTemplate.cloneNode(true);
   realtyAd.querySelector('.popup__title').textContent = element.offer.title;
   realtyAd.querySelector('.popup__text--address').textContent = element.offer.address;
@@ -72,6 +72,4 @@ const realtyAdsPopup = (element) => {
   return realtyAd;
 }
 
-export {realtyAdsPopup};
-
-
+export {createRealtyAdsPopup};

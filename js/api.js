@@ -15,17 +15,4 @@ const getData = (onSuccess, onFail) => {
     })
 }
 
-// const sendData = () => {
-//   fetch(
-//     'https://22.javascript.pages.academy/keksobooking',
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//       body,
-//     },
-//   )
-// }
-
 export {getData};

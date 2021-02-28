@@ -1,7 +1,3 @@
-// import {setDefaultAddress, address} from './map.js';
-// import {onSuccess} from './form-message.js';
-
-const adForm = document.querySelector('.ad-form');
 const title = document.getElementById('title');
 const type = document.getElementById('type');
 const price = document.getElementById('price');
@@ -10,7 +6,6 @@ const timeInSelector = timeForm.elements.timein;
 const timeOutSelector = timeForm.elements.timeout;
 const roomNumberOptions = document.getElementById('room_number');
 const capacityOptions = document.getElementById('capacity');
-const resetButton = document.querySelector('.ad-form__reset');
 
 const validateTitle = () => {
   if (title.value.length < '30') {
@@ -18,14 +13,14 @@ const validateTitle = () => {
   } else {title.setCustomValidity('')}
   title.reportValidity();
 }
-title.addEventListener('input', validateTitle)
+title.addEventListener('input', validateTitle);
 
 const setPriceValue = (priceValue) => {
   price.setAttribute('min', priceValue);
   price.setAttribute('placeholder', priceValue);
 }
 
-const compareTypeAndPrice = () => {
+const validatePrice = () => {
   let priceValue;
   switch (type.value) {
     case 'bungalow':
@@ -46,12 +41,12 @@ const compareTypeAndPrice = () => {
       break;
   }
 }
-compareTypeAndPrice();
+validatePrice();
 type.addEventListener('input', () => {
-  compareTypeAndPrice();
+  validatePrice();
   price.reportValidity();
 })
-price.addEventListener('input', price.reportValidity)
+price.addEventListener('input', price.reportValidity);
 
 timeOutSelector.value = timeInSelector.value;
 timeInSelector.addEventListener('input', () => timeOutSelector.value = timeInSelector.value);
@@ -76,11 +71,4 @@ validateCapacity();
 roomNumberOptions.addEventListener('input', validateCapacity);
 capacityOptions.addEventListener('input', validateCapacity);
 
-// adForm.addEventListener('submit', (evt) => {
-//   evt.preventDefault();
-//
-//   const formData = new FormData(evt.target);
-//
-//
-// })
 
