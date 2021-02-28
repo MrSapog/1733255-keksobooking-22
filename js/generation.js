@@ -72,7 +72,6 @@ const realtyAdsPopup = (element) => {
   return realtyAd;
 }
 
-
 export {realtyAdsPopup};
 
 

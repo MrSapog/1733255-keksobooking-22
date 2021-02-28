@@ -1,3 +1,7 @@
+// import {setDefaultAddress, address} from './map.js';
+// import {onSuccess} from './form-message.js';
+
+const adForm = document.querySelector('.ad-form');
 const title = document.getElementById('title');
 const type = document.getElementById('type');
 const price = document.getElementById('price');
@@ -6,6 +10,7 @@ const timeInSelector = timeForm.elements.timein;
 const timeOutSelector = timeForm.elements.timeout;
 const roomNumberOptions = document.getElementById('room_number');
 const capacityOptions = document.getElementById('capacity');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const validateTitle = () => {
   if (title.value.length < '30') {
@@ -20,7 +25,7 @@ const setPriceValue = (priceValue) => {
   price.setAttribute('placeholder', priceValue);
 }
 
-const setTypePrice = () => {
+const compareTypeAndPrice = () => {
   let priceValue;
   switch (type.value) {
     case 'bungalow':
@@ -41,9 +46,9 @@ const setTypePrice = () => {
       break;
   }
 }
-setTypePrice();
+compareTypeAndPrice();
 type.addEventListener('input', () => {
-  setTypePrice();
+  compareTypeAndPrice();
   price.reportValidity();
 })
 price.addEventListener('input', price.reportValidity)
@@ -52,7 +57,7 @@ timeOutSelector.value = timeInSelector.value;
 timeInSelector.addEventListener('input', () => timeOutSelector.value = timeInSelector.value);
 timeOutSelector.addEventListener('input', () => timeInSelector.value = timeOutSelector.value);
 
-const getValidCapacity = () => {
+const validateCapacity = () => {
   if (roomNumberOptions.value === '1' && (capacityOptions.value === '2' || capacityOptions.value === '3' || capacityOptions.value === '0')) {
     capacityOptions.setCustomValidity('В 1 комнате может разместиться только 1 гость');
   } else if (roomNumberOptions.value === '2' && (capacityOptions.value === '3' || capacityOptions.value === '0')) {
@@ -67,33 +72,15 @@ const getValidCapacity = () => {
   roomNumberOptions.reportValidity();
   capacityOptions.reportValidity();
 }
-getValidCapacity();
-roomNumberOptions.addEventListener('input', getValidCapacity);
-capacityOptions.addEventListener('input', getValidCapacity);
+validateCapacity();
+roomNumberOptions.addEventListener('input', validateCapacity);
+capacityOptions.addEventListener('input', validateCapacity);
 
-
-
-
-
-
-
-
-
-// const adForm = document.querySelector('.ad-form');
 // adForm.addEventListener('submit', (evt) => {
 //   evt.preventDefault();
 //
 //   const formData = new FormData(evt.target);
 //
-//   fetch(
-//     'https://22.javascript.pages.academy/keksobooking',
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//       body: formData,
-//     },
-//   )
+//
 // })
 

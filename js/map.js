@@ -4,7 +4,10 @@ import {realtyAdsPopup} from './generation.js';
 const address = document.getElementById('address');
 const defaultLat = 35.6895;
 const defaultLng = 139.69200;
-address.value = defaultLat + ', ' + defaultLng;
+const setDefaultAddress = () => {
+  address.value = defaultLat + ', ' + defaultLng;
+}
+setDefaultAddress();
 
 /* global L:readonly */
 const map = L.map('map')
@@ -42,7 +45,7 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
-const realtyAdsGeneration = (realtyAds) => {
+const generateRealtyAds = (realtyAds) => {
   realtyAds.forEach((ad) => {
     const marker = L.marker(
       [ad.location.lat, ad.location.lng],
@@ -62,5 +65,5 @@ const realtyAdsGeneration = (realtyAds) => {
   });
 }
 
-export {realtyAdsGeneration};
+export {generateRealtyAds, setDefaultAddress, address};
 
