@@ -12,6 +12,32 @@ const timeOutSelector = timeForm.elements.timeout;
 const roomNumberOptions = document.getElementById('room_number');
 const capacityOptions = document.getElementById('capacity');
 
+const adFormFields = adForm.querySelectorAll('fieldset');
+const filterFormFields = filterForm.querySelectorAll('select, fieldset');
+
+const disableFields = () => {
+  adForm.classList.add('ad-form--disabled');
+  adFormFields.forEach((field) => {
+    field.disabled = true;
+  });
+  filterForm.classList.add('map__filters--disabled');
+  filterFormFields.forEach((field) => {
+    field.disabled = true;
+  });
+}
+disableFields();
+
+const enableFields = () => {
+  adForm.classList.remove('ad-form--disabled');
+  adFormFields.forEach((field) => {
+    field.disabled = false;
+  });
+  filterForm.classList.remove('map__filters--disabled');
+  filterFormFields.forEach((field) => {
+    field.disabled = false;
+  });
+}
+
 const validateTitle = () => {
   if (title.value.length < '30') {
     title.setCustomValidity('Заголовок должен содержать больше ' + title.getAttribute('minlength') + ' символов');
@@ -91,7 +117,7 @@ const setFormSubmit = () => {
   })
 }
 
-export {setFormSubmit, adForm, filterForm};
+export {setFormSubmit, enableFields, adForm, filterForm};
 
 
 

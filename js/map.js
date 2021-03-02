@@ -1,4 +1,4 @@
-import {enableFields} from './condition.js';
+import {enableFields} from './form.js';
 import {createRealtyAdsPopup} from './generation.js';
 
 const address = document.getElementById('address');
