@@ -85,29 +85,4 @@ const createRealtyAd = () => {
 
 const createRealtyAds = () => new Array(numberOfAds).fill(null).map(() => createRealtyAd());
 
-const ALERT_SHOW_TIME = 5000;
-
-const showAlert = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.borderRadius = '0 0 5rem 0';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '0';
-  alertContainer.style.padding = '1rem 2rem';
-  alertContainer.style.padding = '1rem 2rem';
-  alertContainer.style.fontSize = '1rem';
-  alertContainer.style.color = 'white';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = '#EF1616';
-
-  alertContainer.textContent = message;
-
-  document.body.append(alertContainer);
-
-  setTimeout(() => {
-    alertContainer.remove();
-  }, ALERT_SHOW_TIME);
-}
-
-export {createRealtyAds, showAlert};
+export {createRealtyAds};

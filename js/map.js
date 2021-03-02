@@ -2,10 +2,10 @@ import {enableFields} from './condition.js';
 import {createRealtyAdsPopup} from './generation.js';
 
 const address = document.getElementById('address');
-const defaultLat = 35.6895;
-const defaultLng = 139.69200;
+const DEFAULT_LAT = 35.6895;
+const DEFAULT_LNG = 139.69200;
 const setDefaultAddress = () => {
-  address.value = defaultLat + ', ' + defaultLng;
+  address.value = DEFAULT_LAT + ', ' + DEFAULT_LNG;
 }
 setDefaultAddress();
 
@@ -14,7 +14,7 @@ const map = L.map('map')
   .on('load', () => {
     enableFields();
   })
-  .setView([defaultLat, defaultLng], 13);
+  .setView([DEFAULT_LAT, DEFAULT_LNG], 13);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -65,5 +65,5 @@ const showRealtyAds = (realtyAds) => {
   });
 }
 
-export {showRealtyAds, setDefaultAddress};
+export {showRealtyAds, setDefaultAddress, mainPinMarker, DEFAULT_LAT, DEFAULT_LNG};
 
