@@ -11,10 +11,16 @@ const timeInSelector = timeForm.elements.timein;
 const timeOutSelector = timeForm.elements.timeout;
 const roomNumberOptions = document.getElementById('room_number');
 const capacityOptions = document.getElementById('capacity');
-
 const adFormFields = adForm.querySelectorAll('fieldset');
 const filterFormFields = filterForm.querySelectorAll('select, fieldset');
+const filterType = filterForm.querySelector('[name="housing-type"]');
 
+// Фильтры
+const checkType = (ad) => {
+  return filterType.value === 'any' || filterType.value === ad.offer.type;
+}
+
+// Активация и деактивация полей
 const disableFields = () => {
   adForm.classList.add('ad-form--disabled');
   adFormFields.forEach((field) => {
@@ -38,6 +44,7 @@ const enableFields = () => {
   });
 }
 
+// Валидации полей в форме объявления
 const validateTitle = () => {
   if (title.value.length < '30') {
     title.setCustomValidity('Заголовок должен содержать больше ' + title.getAttribute('minlength') + ' символов');
@@ -101,6 +108,7 @@ const validateCapacity = () => {
 validateCapacity();
 roomNumberOptions.addEventListener('input', validateCapacity);
 capacityOptions.addEventListener('input', validateCapacity);
+//
 
 adForm.addEventListener('reset', () => {
   filterForm.reset();
@@ -117,7 +125,7 @@ const setFormSubmit = () => {
   })
 }
 
-export {setFormSubmit, enableFields, adForm, filterForm};
+export {setFormSubmit, enableFields, checkType, adForm, filterForm};
 
 
 

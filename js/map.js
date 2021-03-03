@@ -1,15 +1,18 @@
-import {enableFields} from './form.js';
+/* global L:readonly */
+const FILTERED_REALTY_ADS_COUNT = 10;
+import {filterForm, checkType, enableFields} from './form.js';
 import {createRealtyAdsPopup} from './generation.js';
 
-const address = document.getElementById('address');
+
 const DEFAULT_LAT = 35.6895;
 const DEFAULT_LNG = 139.69200;
+const address = document.getElementById('address');
+
 const setDefaultAddress = () => {
   address.value = DEFAULT_LAT + ', ' + DEFAULT_LNG;
 }
 setDefaultAddress();
 
-/* global L:readonly */
 const map = L.map('map')
   .on('load', () => {
     enableFields();
@@ -46,7 +49,12 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const showRealtyAds = (realtyAds) => {
-  realtyAds.forEach((ad) => {
+  const filteredRealtyAds = realtyAds
+    .slice()
+    .filter(ad => checkType(ad))
+    .slice(0, FILTERED_REALTY_ADS_COUNT);
+
+  filteredRealtyAds.forEach((ad) => {
     const marker = L.marker(
       [ad.location.lat, ad.location.lng],
       {
@@ -62,6 +70,10 @@ const showRealtyAds = (realtyAds) => {
           keepInView: true,
         },
       );
+
+    filterForm.addEventListener('change', () => {
+      map.removeLayer(marker);
+    });
   });
 }
 

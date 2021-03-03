@@ -7,7 +7,6 @@ const getData = (onSuccess, onFail) => {
       if (response.ok) {
         return response.json();
       }
-
       throw new Error(`${response.status} ${response.statusText}`);
     })
     .then((ads) => {
