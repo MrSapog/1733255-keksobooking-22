@@ -1,8 +1,9 @@
 /* global L:readonly */
-import {filterForm, checkType, enableFields} from './form.js';
-import {createRealtyAdsPopup} from './generation.js';
+import {enableFields} from './form.js';
+import {getData} from './api.js';
+import {showGetDataError} from './api-alerts.js';
+import {showRealtyAds} from './api-markers.js';
 
-const FILTERED_REALTY_ADS_COUNT = 10;
 const DEFAULT_LAT = 35.6895;
 const DEFAULT_LNG = 139.69200;
 const address = document.getElementById('address');
@@ -14,7 +15,7 @@ setDefaultAddress();
 
 const map = L.map('map')
   .on('load', () => {
-    enableFields();
+    getData(showRealtyAds, showGetDataError).then(enableFields);
   })
   .setView([DEFAULT_LAT, DEFAULT_LNG], 13);
 
@@ -47,34 +48,5 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
-const showRealtyAds = (realtyAds) => {
-  const filteredRealtyAds = realtyAds
-    .slice()
-    .filter(ad => checkType(ad))
-    .slice(0, FILTERED_REALTY_ADS_COUNT);
-
-  filteredRealtyAds.forEach((ad) => {
-    const marker = L.marker(
-      [ad.location.lat, ad.location.lng],
-      {
-        icon: pinIcon,
-      },
-    );
-
-    marker
-      .addTo(map)
-      .bindPopup(
-        createRealtyAdsPopup(ad),
-        {
-          keepInView: true,
-        },
-      );
-
-    filterForm.addEventListener('change', () => {
-      map.removeLayer(marker);
-    });
-  });
-}
-
-export {showRealtyAds, setDefaultAddress, mainPinMarker, DEFAULT_LAT, DEFAULT_LNG};
+export {setDefaultAddress, mainPinMarker, DEFAULT_LAT, DEFAULT_LNG, map, pinIcon};
 

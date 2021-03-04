@@ -24,66 +24,47 @@ const showGetDataError = (message) => {
 }
 
 const openModal = (selector) => {
+  const modal = main.querySelector(`.${selector}`);
   body.setAttribute('scroll', 'no');
   body.style.overflow = 'hidden';
 
-  const alertContainer = document.getElementById(selector).content.querySelector('div').cloneNode(true);
-  main.appendChild(alertContainer);
+  if (!modal) {
+    const alertContainer = document.getElementById(selector).content.querySelector('div').cloneNode(true);
+    main.appendChild(alertContainer);
+    alertContainer.classList.add('modal')
+  } else {
+    modal.classList.toggle('hidden');
+  }
 
-  // const errorOnSend = main.querySelector(`.${selector}`);
-
+  document.addEventListener('click', closeModalHandler);
+  document.addEventListener('keydown', closeModalHandler);
 }
 
-// const closeModal = () => {
-//
-// }
-
-
-const createModal = (selector) => {
-  // const errorOnSend = main.querySelector(`.${selector}`);
-  // body.setAttribute('scroll', 'no');
-  // body.style.overflow = 'hidden';
-
-  if (errorOnSend) {
-    errorOnSend.classList.toggle('hidden');
-    return;
+const closeModalHandler = (evt) => {
+  const button = main.querySelector('.error__button');
+  if ((evt.target.tagName === 'DIV') || (evt.code === 'Escape' && body.hasAttribute('scroll'))) {
+    closeModal();
+  } else if (button) {
+    button.addEventListener('click', closeModal);
   }
+}
 
-  // const alertContainer = document.getElementById(selector).content.querySelector('div').cloneNode(true);
-  // main.appendChild(alertContainer);
+const closeModal = () => {
+  body.removeAttribute('scroll');
+  body.style.overflow = '';
+  body.querySelector('.modal').classList.toggle('hidden');
 
-  const hideModal = () => {
-    alertContainer.classList.toggle('hidden');
-    body.removeAttribute('scroll');
-    body.style.overflow = '';
-  }
-
-  if (alertContainer.querySelector('button')) {
-    const button = alertContainer.querySelector('button');
-    button.addEventListener('click', hideModal);
-  }
-
-  const hideModalOnClickHandler = (evt) => {
-    if (evt.target === alertContainer) {
-      hideModal();
-    }
-  }
-  document.addEventListener('click', hideModalOnClickHandler);
-
-  const hideModalOnEcsHandler = (evt) => {
-    if (evt.code === 'Escape' && body.hasAttribute('scroll')) {
-      hideModal();
-    }
-  }
-  document.addEventListener('keydown', hideModalOnEcsHandler);
+  document.removeEventListener('click', closeModalHandler);
+  document.removeEventListener('keydown', closeModalHandler);
 }
 
 const showPostDataSuccess = () => {
-  createModal('success');
+  openModal('success');
 }
 
 const showPostDataError = () => {
-  createModal('error');
+  openModal('error');
 }
 
 export {showGetDataError, showPostDataError, showPostDataSuccess};
+

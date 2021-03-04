@@ -1,16 +1,26 @@
 import './map.js';
 import './form.js';
-import {showRealtyAds} from './map.js';
+import {showRealtyAds, markersLayer} from './api-markers.js';
 import {showGetDataError} from './api-alerts.js';
-import {getData} from './api.js';
-import {setFormSubmit, filterForm} from './form.js';
-
-getData(showRealtyAds, showGetDataError);
-setFormSubmit();
+import {adForm, getData} from './api.js';
+import {filterForm} from './form.js';
+import {DEFAULT_LAT, DEFAULT_LNG, mainPinMarker, map, setDefaultAddress} from './map.js';
 
 filterForm.addEventListener('change', () => {
-  getData(showRealtyAds, showGetDataError);
+  map.removeLayer(markersLayer);
+  return getData(showRealtyAds, showGetDataError);
 })
+
+adForm.addEventListener('reset', () => {
+  filterForm.reset();
+  map.removeLayer(markersLayer);
+  setTimeout(() => {
+    setDefaultAddress();
+    mainPinMarker.setLatLng([DEFAULT_LAT, DEFAULT_LNG]);
+  }, 0)
+  return getData(showRealtyAds, showGetDataError);
+})
+
 
 
 

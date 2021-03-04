@@ -1,5 +1,4 @@
 import {sendData} from './api.js';
-import {setDefaultAddress, mainPinMarker, DEFAULT_LAT, DEFAULT_LNG} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const filterForm = document.querySelector('.map__filters');
@@ -110,22 +109,15 @@ roomNumberOptions.addEventListener('input', validateCapacity);
 capacityOptions.addEventListener('input', validateCapacity);
 //
 
-adForm.addEventListener('reset', () => {
-  filterForm.reset();
-  setTimeout(() => {
-    setDefaultAddress();
-    mainPinMarker.setLatLng([DEFAULT_LAT, DEFAULT_LNG]);
-  }, 0)
-})
-
 const setFormSubmit = () => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    sendData();
+    return sendData();
   })
 }
+setFormSubmit();
 
-export {setFormSubmit, enableFields, checkType, adForm, filterForm};
+export {enableFields, checkType, adForm, filterForm};
 
 
 
