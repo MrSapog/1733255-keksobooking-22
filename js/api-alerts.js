@@ -15,9 +15,7 @@ const showGetDataError = (message) => {
   alertContainer.style.color = 'white';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = '#EF1616';
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {

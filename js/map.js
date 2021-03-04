@@ -1,9 +1,8 @@
 /* global L:readonly */
-const FILTERED_REALTY_ADS_COUNT = 10;
 import {filterForm, checkType, enableFields} from './form.js';
 import {createRealtyAdsPopup} from './generation.js';
 
-
+const FILTERED_REALTY_ADS_COUNT = 10;
 const DEFAULT_LAT = 35.6895;
 const DEFAULT_LNG = 139.69200;
 const address = document.getElementById('address');
