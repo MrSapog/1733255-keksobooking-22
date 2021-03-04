@@ -23,18 +23,34 @@ const showGetDataError = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-const createModal = (selector, id) => {
-  const errorOnSend = main.querySelector(selector);
+const openModal = (selector) => {
   body.setAttribute('scroll', 'no');
   body.style.overflow = 'hidden';
+
+  const alertContainer = document.getElementById(selector).content.querySelector('div').cloneNode(true);
+  main.appendChild(alertContainer);
+
+  // const errorOnSend = main.querySelector(`.${selector}`);
+
+}
+
+// const closeModal = () => {
+//
+// }
+
+
+const createModal = (selector) => {
+  // const errorOnSend = main.querySelector(`.${selector}`);
+  // body.setAttribute('scroll', 'no');
+  // body.style.overflow = 'hidden';
 
   if (errorOnSend) {
     errorOnSend.classList.toggle('hidden');
     return;
   }
 
-  const alertContainer = document.getElementById(id).content.querySelector('div').cloneNode(true);
-  main.appendChild(alertContainer);
+  // const alertContainer = document.getElementById(selector).content.querySelector('div').cloneNode(true);
+  // main.appendChild(alertContainer);
 
   const hideModal = () => {
     alertContainer.classList.toggle('hidden');
@@ -47,25 +63,27 @@ const createModal = (selector, id) => {
     button.addEventListener('click', hideModal);
   }
 
-  document.addEventListener('click', (evt) => {
+  const hideModalOnClickHandler = (evt) => {
     if (evt.target === alertContainer) {
       hideModal();
     }
-  });
+  }
+  document.addEventListener('click', hideModalOnClickHandler);
 
-  document.addEventListener('keydown', (evt) => {
+  const hideModalOnEcsHandler = (evt) => {
     if (evt.code === 'Escape' && body.hasAttribute('scroll')) {
       hideModal();
     }
-  });
+  }
+  document.addEventListener('keydown', hideModalOnEcsHandler);
 }
 
 const showPostDataSuccess = () => {
-  createModal('.success', 'success');
+  createModal('success');
 }
 
 const showPostDataError = () => {
-  createModal('.error', 'error');
+  createModal('error');
 }
 
 export {showGetDataError, showPostDataError, showPostDataSuccess};
