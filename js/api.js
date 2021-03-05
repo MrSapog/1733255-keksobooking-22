@@ -1,5 +1,6 @@
-import {adForm, filterForm} from './form.js';
+import {adForm} from './form.js';
 import {showPostDataError, showPostDataSuccess} from './api-alerts.js';
+import {resetFormsAndMarkers} from './map.js';
 
 const getData = (onSuccess, onFail) => {
   return fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -27,7 +28,7 @@ const sendData = () => {
   )
     .then((response) => {
       if (response.ok) {
-        filterForm.reset();
+        resetFormsAndMarkers();
         adForm.reset();
         showPostDataSuccess();
       } else {

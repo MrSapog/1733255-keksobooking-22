@@ -1,5 +1,5 @@
 /* global L:readonly */
-import {enableFields} from './form.js';
+import {enableFields, filterForm} from './form.js';
 import {getData} from './api.js';
 import {showGetDataError} from './api-alerts.js';
 import {showRealtyAds} from './api-markers.js';
@@ -48,5 +48,13 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
-export {setDefaultAddress, mainPinMarker, DEFAULT_LAT, DEFAULT_LNG, map, pinIcon};
+const resetFormsAndMarkers = () => {
+  filterForm.reset();
+  setTimeout(() => {
+    setDefaultAddress();
+    mainPinMarker.setLatLng([DEFAULT_LAT, DEFAULT_LNG]);
+  }, 0)
+}
+
+export {resetFormsAndMarkers, mainPinMarker, DEFAULT_LAT, DEFAULT_LNG, map, pinIcon};
 
