@@ -13,11 +13,45 @@ const capacityOptions = document.getElementById('capacity');
 const adFormFields = adForm.querySelectorAll('fieldset');
 const filterFormFields = filterForm.querySelectorAll('select, fieldset');
 const filterType = filterForm.querySelector('[name="housing-type"]');
+const filterPrice = filterForm.querySelector('[name="housing-price"]');
+const filterRooms = filterForm.querySelector('[name="housing-rooms"]');
+const filterGuests = filterForm.querySelector('[name="housing-guests"]');
+const filterWifi = document.getElementById('filter-wifi');
+const filterDishwasher = document.getElementById('filter-dishwasher');
+const filterParking = document.getElementById('filter-parking');
+const filterWasher = document.getElementById('filter-washer');
+const filterElevator = document.getElementById('filter-elevator');
+const filterConditioner = document.getElementById('filter-conditioner');
 
 // Фильтры
 const checkType = (ad) => {
   return filterType.value === 'any' || filterType.value === ad.offer.type;
 }
+
+const checkPrice = (ad) => {
+  return filterPrice.value === 'any' ||
+    filterPrice.value === 'middle' && (ad.offer.price >= 10000 && ad.offer.price < 50000) ||
+    filterPrice.value === 'low' && ad.offer.price < 10000 ||
+    filterPrice.value === 'high' && ad.offer.price >= 50000;
+}
+
+const checkRooms = (ad) => {
+  return filterRooms.value === 'any' || filterRooms.value === ad.offer.rooms.toString();
+}
+
+const checkGuests = (ad) => {
+  return filterGuests.value === 'any' || filterGuests.value === ad.offer.guests.toString();
+}
+
+const checkFeature = (filter, ad) => {
+  return !filter.checked || filter.checked && ad.offer.features.includes(filter.value);
+}
+const checkWifi = (ad) => checkFeature(filterWifi, ad);
+const checkDishwasher = (ad) => checkFeature(filterDishwasher, ad);
+const checkParking = (ad) => checkFeature(filterParking, ad);
+const checkWasher = (ad) => checkFeature(filterWasher, ad);
+const checkElevator = (ad) => checkFeature(filterElevator, ad);
+const checkConditioner = (ad) => checkFeature(filterConditioner, ad);
 
 // Активация и деактивация полей
 const disableFields = () => {
@@ -117,7 +151,8 @@ const setFormSubmit = () => {
 }
 setFormSubmit();
 
-export {enableFields, checkType, adForm, filterForm};
+export {enableFields, adForm, filterForm, checkType, checkPrice, checkRooms, checkGuests,
+  checkWifi, checkDishwasher, checkParking, checkWasher, checkElevator, checkConditioner};
 
 
 
