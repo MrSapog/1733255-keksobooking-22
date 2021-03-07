@@ -6,18 +6,32 @@ import {adForm, getData} from './api.js';
 import {filterForm} from './form.js';
 import {map, resetFormsAndMarkers} from './map.js';
 
+const RERENDER_DELAY = 500;
+
+const debounce = (cb, delay) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+      cb(...args);
+    }, delay)
+  }
+}
+
+const renderRealtyAds = () => getData(showRealtyAds, showGetDataError);
+const debouncedRealtyAdsRendering = debounce(renderRealtyAds, RERENDER_DELAY);
+
 filterForm.addEventListener('change', () => {
   map.removeLayer(markersLayer);
-  return getData(showRealtyAds, showGetDataError);
+  debouncedRealtyAdsRendering();
 })
 
 adForm.addEventListener('reset', () => {
   resetFormsAndMarkers();
   map.removeLayer(markersLayer);
-  return getData(showRealtyAds, showGetDataError);
+  debouncedRealtyAdsRendering();
 })
-
-
 
 
 
