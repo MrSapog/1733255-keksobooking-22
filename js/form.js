@@ -1,5 +1,12 @@
 import {sendData} from './api.js';
 
+const ANY_FILTER_TAG = 'any';
+const MIDDLE_PRICE_TAG = 'middle';
+const LOW_PRICE_TAG = 'low';
+const HIGH_PRICE_TAG = 'high';
+const MIN_MIDDLE_PRICE = 10000;
+const MAX_MIDDLE_PRICE = 50000;
+const MIN_TITLE_LENGTH = 30;
 const adForm = document.querySelector('.ad-form');
 const filterForm = document.querySelector('.map__filters');
 const title = document.getElementById('title');
@@ -25,22 +32,22 @@ const filterConditioner = document.getElementById('filter-conditioner');
 
 // Фильтры
 const checkType = (ad) => {
-  return filterType.value === 'any' || filterType.value === ad.offer.type;
+  return filterType.value === ANY_FILTER_TAG || filterType.value === ad.offer.type;
 }
 
 const checkPrice = (ad) => {
-  return filterPrice.value === 'any' ||
-    filterPrice.value === 'middle' && (ad.offer.price >= 10000 && ad.offer.price < 50000) ||
-    filterPrice.value === 'low' && ad.offer.price < 10000 ||
-    filterPrice.value === 'high' && ad.offer.price >= 50000;
+  return filterPrice.value === ANY_FILTER_TAG ||
+    filterPrice.value === MIDDLE_PRICE_TAG && (ad.offer.price >= MIN_MIDDLE_PRICE && ad.offer.price < MAX_MIDDLE_PRICE) ||
+    filterPrice.value === LOW_PRICE_TAG && ad.offer.price < MIN_MIDDLE_PRICE ||
+    filterPrice.value === HIGH_PRICE_TAG && ad.offer.price >= MAX_MIDDLE_PRICE;
 }
 
 const checkRooms = (ad) => {
-  return filterRooms.value === 'any' || filterRooms.value === ad.offer.rooms.toString();
+  return filterRooms.value === ANY_FILTER_TAG || filterRooms.value === ad.offer.rooms.toString();
 }
 
 const checkGuests = (ad) => {
-  return filterGuests.value === 'any' || filterGuests.value === ad.offer.guests.toString();
+  return filterGuests.value === ANY_FILTER_TAG || filterGuests.value === ad.offer.guests.toString();
 }
 
 const checkFeature = (filter, ad) => {
@@ -52,6 +59,21 @@ const checkParking = (ad) => checkFeature(filterParking, ad);
 const checkWasher = (ad) => checkFeature(filterWasher, ad);
 const checkElevator = (ad) => checkFeature(filterElevator, ad);
 const checkConditioner = (ad) => checkFeature(filterConditioner, ad);
+
+const checkFilters = (ad) => {
+  if (checkType(ad) &&
+    checkPrice(ad) &&
+    checkRooms(ad) &&
+    checkGuests(ad) &&
+    checkWifi(ad) &&
+    checkDishwasher(ad) &&
+    checkParking(ad) &&
+    checkWasher(ad) &&
+    checkElevator(ad) &&
+    checkConditioner(ad)) {
+    return true;
+  }
+}
 
 // Активация и деактивация полей
 const disableFields = () => {
@@ -79,7 +101,7 @@ const enableFields = () => {
 
 // Валидации полей в форме объявления
 const validateTitle = () => {
-  if (title.value.length < '30') {
+  if (title.value.length < MIN_TITLE_LENGTH) {
     title.setCustomValidity('Заголовок должен содержать больше ' + title.getAttribute('minlength') + ' символов');
   } else {title.setCustomValidity('')}
   title.reportValidity();
@@ -151,8 +173,9 @@ const setFormSubmit = () => {
 }
 setFormSubmit();
 
-export {enableFields, adForm, filterForm, checkType, checkPrice, checkRooms, checkGuests,
-  checkWifi, checkDishwasher, checkParking, checkWasher, checkElevator, checkConditioner};
+
+
+export {enableFields, adForm, filterForm, checkFilters};
 
 
 
