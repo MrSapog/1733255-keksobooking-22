@@ -36,22 +36,22 @@ const openModal = (selector) => {
     modal.classList.toggle('hidden');
   }
 
-  const button = main.querySelector('.error__button');
-  if (button) {
-    button.addEventListener('click', closeModal);
+  const errorButton = main.querySelector('.error__button');
+  if (errorButton) {
+    errorButton.addEventListener('click', closeModal);
   }
 
-  document.addEventListener('click', closeModalOnClickHandler);
-  document.addEventListener('keydown', closeModalOnKeydownHandler);
+  document.addEventListener('click', modalClickHandler);
+  document.addEventListener('keydown', modalKeydownHandler);
 }
 
-const closeModalOnClickHandler = (evt) => {
+const modalClickHandler = (evt) => {
   if (evt.target.tagName === 'DIV') {
     closeModal();
   }
 }
 
-const closeModalOnKeydownHandler = (evt) => {
+const modalKeydownHandler = (evt) => {
   if (evt.code === 'Escape' && body.hasAttribute('scroll')) {
     closeModal();
   }
@@ -62,8 +62,8 @@ const closeModal = () => {
   body.style.overflow = '';
   body.querySelector('.modal').classList.toggle('hidden');
 
-  document.removeEventListener('click', closeModalOnClickHandler);
-  document.removeEventListener('keydown', closeModalOnKeydownHandler);
+  document.removeEventListener('click', modalClickHandler);
+  document.removeEventListener('keydown', modalKeydownHandler);
 }
 
 const showPostDataSuccess = () => {
