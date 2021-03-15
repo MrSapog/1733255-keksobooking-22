@@ -60,20 +60,17 @@ const checkWasher = (ad) => checkFeature(filterWasher, ad);
 const checkElevator = (ad) => checkFeature(filterElevator, ad);
 const checkConditioner = (ad) => checkFeature(filterConditioner, ad);
 
-const checkFilters = (ad) => {
-  if (checkType(ad) &&
-    checkPrice(ad) &&
-    checkRooms(ad) &&
-    checkGuests(ad) &&
-    checkWifi(ad) &&
-    checkDishwasher(ad) &&
-    checkParking(ad) &&
-    checkWasher(ad) &&
-    checkElevator(ad) &&
-    checkConditioner(ad)) {
-    return true;
-  }
-}
+const checkFilters = (ad) =>
+  checkType(ad) &&
+  checkPrice(ad) &&
+  checkRooms(ad) &&
+  checkGuests(ad) &&
+  checkWifi(ad) &&
+  checkDishwasher(ad) &&
+  checkParking(ad) &&
+  checkWasher(ad) &&
+  checkElevator(ad) &&
+  checkConditioner(ad);
 
 // Активация и деактивация полей
 const disableFields = () => {
